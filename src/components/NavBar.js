@@ -34,6 +34,7 @@ export const NavBar = () => {
                         cantidad={'cantidad de productos'}
                     />
                 </li>
+
             </ul>
         </nav>
     </>

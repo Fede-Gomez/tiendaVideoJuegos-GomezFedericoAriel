@@ -9,8 +9,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <NavBar/>
-    <h2>Ofertas imperdibles</h2>
-    <ItemListContainer msj={'Este es un mensaje para futuros desafios!!!!!!'}/>
+    <h2 style={{textAlign:'center'}}>Ofertas imperdibles</h2>
+    <ItemListContainer />
   </React.StrictMode>
 );
 

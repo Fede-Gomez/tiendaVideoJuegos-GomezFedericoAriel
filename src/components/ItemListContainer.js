@@ -1,10 +1,11 @@
 import '../styles/ItemListContainer.css'
-export const ItemListContainer = ({msj}) => {
+import ItemList from './ItemList'
+export const ItemListContainer = () => {
   return (
     <>
-        <p className="itemListContainer">
-            {msj}
-        </p>
+        <div className='cardList' style={{ItemListContainer}}>
+          <ItemList />
+        </div>
     </>
   )
 }

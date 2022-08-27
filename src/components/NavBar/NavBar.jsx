@@ -1,8 +1,8 @@
 import React from 'react'
 import '../../styles/NavBar.css'
 import logo from '../../assets/logo/logo.jpg'
-import { CartWidget } from './CartWidget'
-
+import { CartWidget } from '../CartWidget/CartWidget'
+import {Link} from 'react-router-dom'
 export const NavBar = () => {
 
     const categorias = ['Videojuegos', 'Computadoras', 'Notebooks', 'Merchandising'];
@@ -10,9 +10,11 @@ export const NavBar = () => {
   return (
     <>
         <nav className="navbar navbar-dark bg-dark">
-            <a className="navbar-brand" href="#">
-                <img src={logo} width="130" height="130" className="d-inline-block align-top" alt="logoRedireccion"/>
+            <Link to={`/`}>
+                <a className="navbar-brand" href="#">
+                    <img src={logo} width="130" height="130" className="d-inline-block align-top" alt="logoRedireccion"/>
                 </a>
+            </Link>
             <ul className="navbar-nav">
                 {
                     categorias.map(cat =>(

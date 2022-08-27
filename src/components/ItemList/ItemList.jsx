@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import CardItem from './Item'
+import React from 'react'
+import CardItem from '../items/Item'
 
 const ItemList = ({items}) => {
 
@@ -11,7 +11,7 @@ const ItemList = ({items}) => {
           <>
             <CardItem
               key={e.id}
-              description={e.desciption}
+              id={e.id}
               price={e.price}
               title={e.title}
               urlPic={e.urlPic}

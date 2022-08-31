@@ -2,21 +2,15 @@ import React from 'react'
 import CardItem from '../items/Item'
 
 const ItemList = ({items}) => {
-
   return (
     <>
-      <div className='card-group'>
+      <div className='row'>
       {
         items.map(e=>(
           <>
-            <CardItem
-              key={e.id}
-              id={e.id}
-              price={e.price}
-              title={e.title}
-              urlPic={e.urlPic}
-              stock={e.stock}
-            />
+            <div className='col-sm-4'>
+              {items && <CardItem key={e.id} items={e}/>}
+            </div>
           </>
         ))
       }

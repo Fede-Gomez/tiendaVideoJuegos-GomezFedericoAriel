@@ -9,10 +9,10 @@ function App() {
     <>
       <BrowserRouter>
         <NavBar/>
-          <h2 style={{textAlign:'center'}}>Ofertas imperdibles</h2>
+          <h2 style={{textAlign:'center'}}>Todos los productos !!!</h2>
         <Routes>
           <Route path='/' element={<ItemListContainer />} />
-          <Route path='/category/:categoryId' element={<ItemListContainer />} />
+          <Route path='/category/:category' element={<ItemListContainer />} />
           <Route path='/item/:id' element={<ItemDetailContainer/>} />
         </Routes>
       </BrowserRouter>

@@ -22,15 +22,10 @@ useEffect(() => {
 
     return (
         <>
-            <div className='cardList' >
-                {producto && 
-                  <ItemDetail
-                    description={producto.description}
-                    price={producto.price}
-                    title={producto.title}
-                    urlPic={producto.urlPic}
-                 />}
-            </div>
+            {producto && 
+              <ItemDetail
+                producto={producto}
+              />}
         </>
   )
 }

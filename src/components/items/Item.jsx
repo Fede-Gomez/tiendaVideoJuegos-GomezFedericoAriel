@@ -15,7 +15,7 @@ const CardItem = ({items}) => {
                 </div>
                 <span>Stock disponible: {stock}</span>
                 <Link to={`/item/${id}`}>
-                <div class="card-footer text-muted">
+                <div className="card-footer text-muted">
                     <button>
                         Ver mas detalles
                     </button>

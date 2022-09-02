@@ -9,14 +9,14 @@ export const NavBar = () => {
 
   return (
     <>
-        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark">
             <Link to={`/`}>
                 <a className="navbar-brand" href="#">
                     <img src={logo} width="130" height="130" className="d-inline-block align-top" alt="logoRedireccion"/>
                 </a>
             </Link>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav mr-auto">
                 {
                     categorias.map(cat =>(
                         <Link to={`/category/${cat}`}>

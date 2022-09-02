@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import ItemCount from '../ItemCount/ItemCount';
 
 export default function ItemDetail({producto}) {
-    const {price, title, stock, urlPic, description} = producto;
+    const {price, title, stock, urlPic, description, categoryId} = producto;
+    const [agregarItem, setAgregarItem] = useState(0)
+    const agregarItemCarrito = (count)=>{
+        setAgregarItem(count)
+    }
     return (
     <>
         {producto &&
@@ -12,7 +17,45 @@ export default function ItemDetail({producto}) {
                 <div className="card-body">
                     <p className="card-text">{description}</p>
                     <span>Precio: {price}</span>
-                    <ItemCount initial={0} stock={stock} onAdd={"aca se va a agregar al carrito!"}/>
+                    {
+                        agregarItem == 0 ?
+                            <ItemCount 
+                                initial={0} 
+                                stock={stock} 
+                                onAdd={agregarItemCarrito}
+                            />
+                            :
+                            <div style={{textAlign:'center'}}>
+                                <Link to={`/`}>
+                                    <button 
+                                        style={{width:'100%'}}
+                                        type="button" 
+                                        className='btn btn-primary'
+                                    >
+                                        Volver a inicio
+                                    </button>
+                                </Link>
+                                <Link to={`/category/${categoryId}`}>
+                                    <button 
+                                        style={{width:'100%'}}
+                                        type="button" 
+                                        className='btn btn-secondary'
+                                    >
+                                        Volver a la categoria
+                                    </button>
+                                </Link>
+                                <Link to={`/cart/`}>
+                                    <button 
+                                        style={{width:'100%'}}
+                                        type="button" 
+                                        className='btn btn-success'
+                                    >
+                                        Terminar Compra
+                                    </button>
+                                </Link>
+                            </div>
+                    }
+                    
                 </div>
             </div>
         }

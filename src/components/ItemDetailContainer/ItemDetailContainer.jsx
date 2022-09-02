@@ -3,22 +3,34 @@ import ItemDetail from '../ItemDetail/ItemDetail';
 import {useParams} from 'react-router-dom';
 import datos from '../../assets/datosJuegos/productos';
 
-
+const items = datos;
 export default function ItemDetailContainer() {
   const [producto, setProducto] = useState([])
   const {id} = useParams();
-
 useEffect(() => {
-    const juego = datos;
     new Promise ((resol)=>{
       setTimeout(() => {
-        resol(juego)
+        resol(items)
       }, 2000)
     }).then(data =>{
-        setProducto(data.find(e => e.id == id));
+      // ver si es un item random
+        let random = data.find(e => e.id == id);
+        random.title.includes('random') 
+        ?
+          buscarProductoRandom(random.categoryId)
+        :
+          setProducto(random)
       }
     )
 }, [id])
+
+const buscarProductoRandom = (category)=>{
+  let itemRandom = items.filter(e => e.categoryId == category)
+  setProducto(itemRandom[getRandomInt(itemRandom.length-1)]);
+}
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
     return (
         <>

@@ -10,7 +10,7 @@ const ItemCount = ({stock,initial,onAdd}) => {
         count != 0  ? setCount(count - 1) : alert("No hay mas stock")
     }
     const Add = ()=>{
-        stock == 0 ? alert('Agrege un 1 aunque sea al carrito') : alert(onAdd)
+        count == 0 ? alert('Agrege un 1 aunque sea al carrito') : onAdd(count)
     }
     return (
     <>

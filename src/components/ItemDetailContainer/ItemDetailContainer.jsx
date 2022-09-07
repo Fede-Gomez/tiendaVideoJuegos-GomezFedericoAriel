@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ItemDetail from '../ItemDetail/ItemDetail';
 import {useParams} from 'react-router-dom';
 import datos from '../../assets/datosJuegos/productos';
+import { PacmanLoader } from 'react-spinners';
 
 const items = datos;
 export default function ItemDetailContainer() {
@@ -34,10 +35,16 @@ function getRandomInt(max) {
 
     return (
         <>
-            {producto && 
+            {producto.length != 0 ?
               <ItemDetail
                 producto={producto}
-              />}
+              />
+              : <PacmanLoader color={'#4A90E2'} cssOverride={override} size={150}/>
+            }
         </>
   )
 }
+const override = {
+  margin: "0 auto",
+  'marginTop': '80px',
+};

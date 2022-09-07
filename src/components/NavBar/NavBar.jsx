@@ -11,29 +11,24 @@ export const NavBar = () => {
     <>
         <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark">
             <Link to={`/`}>
-                <a className="navbar-brand" href="#">
-                    <img src={logo} width="130" height="130" className="d-inline-block align-top" alt="logoRedireccion"/>
-                </a>
+                <img src={logo} width="130" height="130" className="d-inline-block align-top" alt="logoRedireccion"/>
             </Link>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                 {
                     categorias.map(cat =>(
-                        <Link to={`/category/${cat}`}>
+                        <Link key={cat} to={`/category/${cat}`}>
                             <li key={cat} className='nav-item'>
-                                <a className='nav-link'>{cat}</a>
+                                <span className='nav-link'>{cat}</span>
                             </li>
                         </Link>
                     ))
                 }
                 </ul>
-                <CartWidget
-                    cantidad={'cantidad de productos'}
-                />
-                <button className='btn-login'>
-                    Login
-                </button>
             </div>
+                <Link to={'/cart'}>
+                    <CartWidget/>
+                </Link>
         </nav>
     </>
   )

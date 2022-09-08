@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import datos from '../../assets/datosJuegos/productos'
 import '../../styles/ItemListContainer.css'
 import ItemList from '../ItemList/ItemList'
+import { PacmanLoader } from 'react-spinners';
 export const ItemListContainer = () => {
 
 const [productos, setProductos] = useState([])
@@ -22,11 +23,22 @@ useEffect(() => {
 
   return (
     <>
+        <h2 style={{textAlign:'center', margin:'30px'}}>Productos de: {category}</h2>
         <div className='cardList'>
-          {productos && <ItemList items={productos}/>}
+          {productos.length != 0 ?
+              <ItemList 
+                items={productos}
+              />
+              : 
+              <PacmanLoader color={'#4A90E2'} cssOverride={override} size={150}/>
+            }
         </div>
     </>
   )
 }
 
 
+const override = {
+  margin: "0 auto",
+  'marginTop': '80px',
+};

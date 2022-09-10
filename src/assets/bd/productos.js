@@ -1,7 +1,9 @@
-const datos = [
+const product = [
     {
         id:0,
         categoryId:'Videojuegos',
+        gender: 'Aventura',
+        consolas: ['XboxOne', 'PS4', 'PS5', 'Pc'],
         title: 'Dragon ball Z kakarot',
         description: 'Kakarot es principalmente un juego de rol de acción con elementos de Videojuegos de lucha. El jugador puede luchar contra oponentes y realizar actividades como pescar, recolectar orbes Z, comer, conducir un auto flotante, entrenar y poner personajes en emblemas del alma.',
         price: 60,
@@ -11,6 +13,8 @@ const datos = [
     {
         id:1,
         categoryId:'Videojuegos',
+        gender: 'RPG',
+        consolas: ['XboxOne', 'PS4', 'PS5', 'Pc'],
         title: 'Final Fantasy VII Remake',
         description: 'Es una nueva versión del videojuego Final Fantasy VII del año 1997 para la consola PlayStation. La historia sigue al mercenario Cloud Strife mientras él y el grupo ecoterrorista AVALANCHE luchan contra la corrupta megacorporación de Shinra y el legendario exsoldado de Shinra Sefirot.',
         price: 60,
@@ -20,6 +24,8 @@ const datos = [
     {
         id:2,
         categoryId:'Videojuegos',
+        gender: 'RPG',
+        consolas: ['XboxOne', 'PS4', 'PS5', 'Pc'],
         title: 'Final Fantasy XV',
         description: 'Final Fantasy XV es un videojuego del género ARPG desarrollado por Square Enix, para PlayStation 4, Xbox One y Microsoft Windows. Junto con Final Fantasy XIII, Final Fantasy XIII-2, Final Fantasy Type-0 y Lightning Returns: Final Fantasy XIII, forma parte del proyecto Fabula Nova Crystallis: Final Fantasy. Final Fantasy XV fue llamado durante sus primeras etapas de desarrollo Final Fantasy Versus XIII pero acabó por convertirse en la decimoquinta entrega de la saga.',
         price: 60,
@@ -29,6 +35,8 @@ const datos = [
     {
         id:3,
         categoryId:'Videojuegos',
+        gender:'Terror',
+        consolas: ['XboxOne', 'PS4', 'PS5', 'Pc', 'Switch'],
         title: 'Resident Evil Remake',
         description: 'Es el año 1998. Un grupo de fuerzas especiales es destinado a las afueras de Raccoon City para investigar una serie de extraños asesinatos. A su llegada, una jauría de perros sedientos de sangre ataca al grupo, obligándoles a refugiarse en una mansión cercana.',
         price: 40,
@@ -38,6 +46,8 @@ const datos = [
     {
         id:4,
         categoryId:'Videojuegos',
+        gender: 'Aventura',
+        consolas: ['PS4', 'PS5', 'Pc'],
         title: 'Marvels Spiderman',
         description: 'Spider-Man es un videojuego de acción y aventuras con un estilo jugable de mundo abierto, que permite al jugador desplazarse de un lugar a otro con total libertad de movimientos y que tiene por escenario donde de desarrolla la historia, la ciudad de Nueva York.',
         price: 60,
@@ -47,6 +57,8 @@ const datos = [
     {
         id:5,
         categoryId:'Videojuegos',
+        gender: 'RPG',
+        consolas: ['PS4', 'PS5', 'Pc', 'Switch'],
         title: 'Chrono Cross The radical dreamers',
         description: 'CHRONO CROSS es un RPG que transciende el tiempo y el espacio, al desarrollarse en dos mundos paralelos e interconectados. Con más de 40 miembros del equipo a los que conocer, personajes y dimensiones se entrelazarán en este drama épico sobre el planeta.',
         price: 60,
@@ -282,6 +294,8 @@ const datos = [
     {
         id:'randomVideojuego',
         categoryId:'Videojuegos',
+        gender: 'Aleatorio',
+        consolas: 'Aleatorio',
         title: 'Videojuego random',
         description: 'Un videojuego random que nuestro algoritmo recomienda',
         price: '???',
@@ -317,4 +331,34 @@ const datos = [
     },
 ]
 
+// comienzo de buscar los generos y agregarlos al array categorias
+let category = ['Videojuegos','PS4','PS5','XboxOne','Switch','Pc']
+let gender = product.filter(e => e.categoryId == 'Videojuegos')
+gender.forEach(e => category.push(e.gender))
+// sacar los duplicados
+category = Array.from(new Set(category))
+// fin de buscar los generos y agregarlos al array e categorias
+
+
+// comienzo de buscar las plataformas y agregarlos al array platform
+let platforms = []
+let plataformas = product.filter(e => e.categoryId == 'Videojuegos')
+plataformas.forEach(e => platforms.push(e.consolas))
+platforms = Array.from(new Set(platforms.flat()))     //  este metodo unifica todos esos subarrays en 1 solo array
+// fin de buscar las plataformas y agregarlos al array e platform
+
+// comienzo de buscar las plataformas y agregarlos al array platform
+let genders = []
+let generos = product.filter(e => e.categoryId == 'Videojuegos')
+generos.forEach(e => genders.push(e.gender))
+genders = Array.from(new Set(genders.flat()))     //  este metodo unifica todos esos subarrays en 1 solo array
+// fin de buscar las plataformas y agregarlos al array e platform
+
+
+const datos = {
+    category,
+    platforms,
+    product,
+    genders
+}
 export default datos

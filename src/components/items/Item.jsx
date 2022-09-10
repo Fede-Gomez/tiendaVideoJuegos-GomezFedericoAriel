@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-// import '../../styles/Cards.css';
+
 const CardItem = ({items}) => {
-    const {id,title, price, description, urlPic, stock} = items;
+    const {id,title, price, description, urlPic} = items;
     return (
         <>
             <div className='card text-center'>
@@ -14,7 +14,6 @@ const CardItem = ({items}) => {
                     <span>Precio: {price}</span>
                     <p>{description}</p>
                 </div>
-                <span>Stock disponible: {stock}</span>
                 <Link key={`detalle${id}`} to={`/item/${id}`}>
                 <div className="card-footer text-muted">
                     <button>

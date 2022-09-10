@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import ItemDetail from '../ItemDetail/ItemDetail';
 import {useParams} from 'react-router-dom';
-import datos from '../../assets/datosJuegos/productos';
+import datos from '../../assets/bd/productos';
 import { PacmanLoader } from 'react-spinners';
 
-const items = datos;
+const {product} = datos;
 export default function ItemDetailContainer() {
   const [producto, setProducto] = useState([])
   const {id} = useParams();
-useEffect(() => {
+
+  useEffect(() => {
     new Promise ((resol)=>{
       setTimeout(() => {
-        resol(items)
+        resol(product)
       }, 2000)
     }).then(data =>{
       // ver si es un item random
@@ -26,7 +27,7 @@ useEffect(() => {
 }, [id])
 
 const buscarProductoRandom = (category)=>{
-  let itemRandom = items.filter(e => e.categoryId == category)
+  let itemRandom = product.filter(e => e.categoryId == category)
   setProducto(itemRandom[getRandomInt(itemRandom.length-1)]);
 }
 function getRandomInt(max) {

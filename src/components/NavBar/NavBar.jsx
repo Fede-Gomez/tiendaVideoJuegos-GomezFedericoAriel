@@ -1,61 +1,100 @@
+import { useEffect, useState } from 'react';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import {Link} from 'react-router-dom'
-import datos from '../../assets/bd/productos';
+import {Link} from 'react-router-dom';
 import logo from '../../assets/logo/logo.jpg'
 import { CartWidget } from '../CartWidget/CartWidget';
-
+import {
+    collection,
+    getDocs,
+    getFirestore,
+  } from 'firebase/firestore'
 
 export const NavBar = () => {
   
-  const {category, platforms, genders} = datos;
-  const navbar = ['Videojuegos', 'Computadoras', 'Notebooks', 'Merchandising']
+  const [genders, setGenders] = useState([])
+  const [platforms, setPlatforms] = useState([])
+  const [navBar, setNavBar] = useState([])
+    
+  
+    const getAllGenders = ()=>{
+        const db = getFirestore();
+        let generosFirebase = [];
+        let generosFiltrados = [];
+        const itemCollection = collection(db, 'items');
+        getDocs(itemCollection).then(snapshot =>{
+            generosFirebase = snapshot.docs.filter(e => e.data().categoryId == 'Videojuegos')
+            generosFirebase.forEach(e => generosFiltrados.push(e.data().gender))
+            setGenders(Array.from(new Set(generosFiltrados.flat())))
+        })
+    }
 
-const generos = 
-<>
-    <NavDropdown title="Videojuegos" id="basic-nav-dropdown">
-        {
-            category.map(e =>(
-                e == 'Videojuegos' 
-                ?
-                    <>
-                        <Link to={`/category/${e}`}>
-                            <NavDropdown.Item href={`/category/${e}`} color='white' >Todos</NavDropdown.Item>
-                        </Link>
-                    </>
-                :
-                    platforms.includes(e)
-                    ?
+    const getAllPlatform = ()=>{
+        const db = getFirestore();
+        let plataformasFirebase = [];
+        let plataformasFiltrados = [];
+        const itemCollection = collection(db, 'items');
+        getDocs(itemCollection).then(snapshot =>{
+            plataformasFirebase = snapshot.docs.filter(e => e.data().categoryId == 'Videojuegos')
+            plataformasFirebase.forEach(e => plataformasFiltrados.push(e.data().consolas))
+            setPlatforms(Array.from(new Set(plataformasFiltrados.flat())))
+        })
+    }
+
+    const getAllCategory = ()=>{
+        const db = getFirestore();
+        let categoriaFirebase = [];
+        let categoriaFiltrados = [];
+        const itemCollection = collection(db, 'items');
+        getDocs(itemCollection).then(snapshot =>{
+            categoriaFirebase = snapshot.docs;
+            categoriaFirebase.forEach(e => categoriaFiltrados.push(e.data().categoryId))
+            setNavBar(Array.from(new Set(categoriaFiltrados.flat())))
+        })
+    }
+
+    useEffect(() => {
+        getAllGenders();
+        getAllPlatform();
+        getAllCategory();
+    }, [])
+
+    const generos = 
+        <>
+            <NavDropdown title="Videojuegos" id="basic-nav-dropdown">
+            <>
+                {
+                    genders.map(e =>(
                         <>
-                            <Link to={`/platform/${e}`}>
-                                <NavDropdown.Item href={`/platform/${e}`}>{e}</NavDropdown.Item>
-                            </Link>
-                        </>
-                    :
-                    genders.includes(e)
-                    ?
-                        <>
-                                <Link to={`/gender/${e}`}>
-                                    <NavDropdown.Item href={`/gender/${e}`}>{e}</NavDropdown.Item>
+                            { 
+                                e!='???' && <Link key={e} to={`/gender/${e}`} style={style.links}>
+                                    {e}
                                 </Link>
-                            </>
-                    :
-                    <>
-                        <Link to={`/category/${e}`}>
-                            <NavDropdown.Item href={`/category/${e}`}>{e}</NavDropdown.Item>
-                        </Link>
-                    </>
-            ))
-        }
-    </NavDropdown>
-</>
+                            }
+                        </>
+                    ))
+                }
+                {
+                    platforms.map(e =>(
+                        <>
+                            { 
+                                e!='???' && <Link key={e} to={`/platform/${e}`} style={style.links}>
+                                    {e}
+                                </Link>
+                            }
+                        </>
+                    ))
+                }
+            </>
+            </NavDropdown>
+        </>
 
     return (
     <>
       <Navbar bg="dark">
           <Navbar.Brand>
-          <Link to={`/`}>
+            <Link to={`/`} key={1}>
                 <img src={logo} width="130" height="130" className="d-inline-block align-top" alt="logoRedireccion"/>
             </Link>
           </Navbar.Brand>
@@ -64,17 +103,17 @@ const generos =
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="me-auto">
             {
-                navbar.map(e=>(
-                    <Nav.Link >
+                navBar.map(e=>(
+                    <>
                         {e.toString() == 'Videojuegos' 
                         ? 
                             generos
                         : 
-                            <Link to={`/category/${e}`}>
-                                <Nav.Link href={`/category/${e}`} style={{color:'white'}}>{e}</Nav.Link>
+                            <Link key={e} to={`/category/${e}`} style={style.linksCategorias}>
+                                    {e}
                             </Link>
                         }
-                    </Nav.Link>
+                    </>
                 ))
             }
             
@@ -85,4 +124,20 @@ const generos =
       </Navbar>
     </>
   );
+
+
 }
+
+const style = {
+    links:{
+        display:'block',
+    },
+    linksCategorias:{
+        color:'white',
+        marginRight:5,
+        marginLeft:5,
+        marginTop:9,
+
+    }
+}
+

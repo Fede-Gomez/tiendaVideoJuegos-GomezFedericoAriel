@@ -1,34 +1,54 @@
 import React,{ useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import datos from '../../assets/bd/productos'
 import '../../styles/ItemListContainer.css'
 import ItemList from '../ItemList/ItemList'
 import { PacmanLoader } from 'react-spinners';
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from 'firebase/firestore'
+
+
 export const ItemListContainer = () => {
 
 const [productos, setProductos] = useState([])
 const { category, platform, gender } = useParams();
 
 useEffect(() => {
-  const {product} = datos;
-  new Promise ((resol)=>{
-    setTimeout(() => {
-      resol(product)
-    }, 2000)
-  }).then(data =>{
-    // Lo que hacen estos elseIf es filtrar por la categoria de videojuegos que eligio el usuario... 
-    // ya sea si filtro algo por plataforma o filtro algo de un genero o filtro algo de una categoria
-    // en el caso que haya puesto otra cosa que no sea videojuegos muestra -> todos los productos
-    if(category != undefined)
-      setProductos( data.filter( e => e.categoryId == category))
-    else if(platform != undefined)
-      setProductos(data.filter( e =>  e.categoryId == 'Videojuegos').filter(a => a.consolas.includes(platform)));
-    else if(gender != undefined){
-      setProductos(data.filter( e =>  e.categoryId == 'Videojuegos').filter(a => a.gender.includes(gender)));
-    }
-    else {
-      setProductos(data)
-    }
+  const db = getFirestore();
+  if(category != undefined){
+    let q = query(collection(db,"items"), where('categoryId','==',category));
+    getDocs(q).then(snapshot =>{
+      setProductos(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})))
+    })
+    return;
+  }
+  if(platform != undefined){
+    let q = query(collection(db,"items"),
+    where('categoryId','==','Videojuegos'),
+    where('consolas','array-contains',platform))
+    getDocs(q).then(snapshot =>{
+      setProductos(snapshot.docs.map(doc => (
+        {id: doc.id, ...doc.data()}
+        )))
+    })
+    return
+  }
+  if(gender != undefined){
+    let q = query(collection(db,"items"),
+    where('gender','==',gender))
+    getDocs(q).then(snapshot =>{
+      setProductos(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})))
+    })
+    return
+  }
+  const itemCollection = collection(db, 'items');
+  getDocs(itemCollection).then(snapshot =>{
+    setProductos(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+    )
   })
 },[category,platform,gender])
 

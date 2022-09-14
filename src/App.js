@@ -5,6 +5,9 @@ import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailCont
 import { ItemListContainer } from './components/ItemListContainer/ItemListContainer';
 import { NavBar } from './components/NavBar/NavBar.jsx';
 import CartProvider from './context/CartContext';
+import startFirebase from './helpers/firebase/connect';
+
+startFirebase();
 
 function App() {
   return (

@@ -14,7 +14,7 @@ export default function Cart() {
         (
           <>
             <Link to={'/'}>
-              <button class="alert alert-info" role="alert" style={style.carrito}>
+              <button className="alert alert-info" role="alert" style={style.carrito}>
                 Agrega productos al carrito
               </button>
             </Link>

@@ -1,34 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import ItemDetail from '../ItemDetail/ItemDetail';
 import {useParams} from 'react-router-dom';
-import datos from '../../assets/bd/productos';
 import { PacmanLoader } from 'react-spinners';
+import {
+  collection,
+  getDocs,
+  getFirestore,
+} from 'firebase/firestore'
 
-const {product} = datos;
+
 export default function ItemDetailContainer() {
   const [producto, setProducto] = useState([])
   const {id} = useParams();
 
   useEffect(() => {
-    new Promise ((resol)=>{
-      setTimeout(() => {
-        resol(product)
-      }, 2000)
-    }).then(data =>{
-      // ver si es un item random
-        let random = data.find(e => e.id == id);
-        random.title.includes('random') 
-        ?
-          buscarProductoRandom(random.categoryId)
-        :
-          setProducto(random)
-      }
-    )
+    const db = getFirestore();
+    const itemCollection = collection(db, 'items');
+    getDocs(itemCollection).then(snapshot =>{
+      let encontrado = snapshot.docs.find(a => a.id == id);
+      encontrado.data().title.includes('random')
+    ? buscarProductoRandom(snapshot.docs, encontrado.data().categoryId)
+    : setProducto(encontrado.data())
+    })
 }, [id])
 
-const buscarProductoRandom = (category)=>{
-  let itemRandom = product.filter(e => e.categoryId == category)
-  setProducto(itemRandom[getRandomInt(itemRandom.length-1)]);
+const buscarProductoRandom = (arrayItems, random)=>{
+  const itemRandom = arrayItems.filter( id => id.data().categoryId == 'Videojuegos' )
+  setProducto(itemRandom[getRandomInt(itemRandom.length-1)].data());
 }
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -38,6 +36,7 @@ function getRandomInt(max) {
         <>
             {producto.length != 0 ?
               <ItemDetail
+                key={1}
                 producto={producto}
               />
               : <PacmanLoader color={'#4A90E2'} cssOverride={override} size={150}/>

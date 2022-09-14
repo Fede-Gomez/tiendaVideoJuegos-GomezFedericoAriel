@@ -1,11 +1,9 @@
-import React, { createContext, useEffect } from 'react'
-import { useState } from 'react';
+import React, { useState, createContext, useEffect } from 'react'
 
 export const CartContext = createContext()
 
 export default function CartProvider({children}) {
     const [items, setItems] = useState(JSON.parse(localStorage.getItem('items')))
-
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('items'));
         if (items) {
@@ -49,7 +47,7 @@ export default function CartProvider({children}) {
             addItem,
             removeItem,
             clear,
-            items
+            items,
         }}>
             {children}
         </CartContext.Provider>

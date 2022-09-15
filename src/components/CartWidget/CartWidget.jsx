@@ -12,12 +12,14 @@ export const CartWidget = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   return (
     <>
-      {items === 0
+      {items.length === 0
       ?
         <img className='imgCarrito'
           src={carritoVacio}
+          alt='carrito vacio'
           height='50'
         />
       :
@@ -25,6 +27,7 @@ export const CartWidget = () => {
         <>
           <img className='imgCarrito'
             src={carritoLleno}
+            alt='carrito lleno'
             height='50'
             onClick={handleShow}
           />
@@ -39,6 +42,7 @@ export const CartWidget = () => {
                     <div style={{display: 'flex', alignItems:'center', marginTop:5, marginBottom:5}}>
                       <img
                         src={e.urlPic}
+                        alt={e.title}
                         height={100}
                         width={250}
                         style={{marginRight:20}}
@@ -50,7 +54,7 @@ export const CartWidget = () => {
                         Cantidad: {e.count}
                       </p>
                       <p style={{marginRight:20}}>
-                        Precio: {e.price*e.count}
+                        Precio: ${e.price*e.count}
                       </p>
                     </div>
                   </>

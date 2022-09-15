@@ -94,7 +94,7 @@ export const NavBar = () => {
     <>
       <Navbar bg="dark">
           <Navbar.Brand>
-            <Link to={`/`} key={1}>
+            <Link to={`/`} key={'img logo'}>
                 <img src={logo} width="130" height="130" className="d-inline-block align-top" alt="logoRedireccion"/>
             </Link>
           </Navbar.Brand>

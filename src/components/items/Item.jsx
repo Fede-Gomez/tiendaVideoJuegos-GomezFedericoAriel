@@ -11,7 +11,7 @@ const CardItem = ({items}) => {
                     <img className="card-img-top" src={urlPic} alt={title} height={250}/>
                 </Link>
                 <div className="card-body">
-                    <span>Precio: {price}</span>
+                    <span>Precio: ${price}</span>
                     <p>{description}</p>
                 </div>
                 <Link key={`detalle${id}`} to={`/item/${id}`}>

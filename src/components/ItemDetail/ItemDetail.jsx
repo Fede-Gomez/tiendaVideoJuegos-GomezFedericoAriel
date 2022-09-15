@@ -5,18 +5,16 @@ import { CartContext } from '../../context/CartContext';
 import ItemCount from '../ItemCount/ItemCount';
 
 export default function ItemDetail({producto}) {
+    const [count, setCount] = useState(0)
     const {addItem, items} = useContext(CartContext)
     const {id,price, title, stock, urlPic, description,categoryId,gender,consolas} = producto;
-    const [count, setCount] = useState(0)
     const agregarItemCarrito = (cantidad)=>{
         setCount(cantidad);
         addItem(producto, cantidad);
     }
-console.log(producto);
 const inicial = ()=>{
     const itemEnCarrito = items.filter(e => e.id === id)
-    console.log(itemEnCarrito);
-    if(itemEnCarrito !== 0){
+    if(itemEnCarrito.length !== 0){
         return itemEnCarrito[0].count - count
     }
     return 0
@@ -30,9 +28,14 @@ const inicial = ()=>{
             <img className="card-img-top" src={urlPic} alt={title} height={250} style={{marginLeft:0}}/>
             <div className="card-body">
                 <p className="card-text">{description}</p>
-                <p>Genero: {gender}</p>
-                {categoryId === 'Videojuegos' && <p>Plataformas: {consolas.map(platform =><b> {platform} </b>)}</p>}
-                <span>Precio: {price}</span>
+                {
+                    categoryId === 'Videojuegos' && 
+                        <>
+                            <p>Plataformas: {consolas.map(platform =><b> {platform} </b>)}</p> 
+                            <p>Genero: {gender}</p>
+                        </>
+                }
+                <span>Precio: ${price}</span>
                 {
                     count === 0 ?
                         <div style={{textAlign:'center'}}>

@@ -18,19 +18,9 @@ export default function ItemDetailContainer() {
     const itemCollection = collection(db, 'items');
     getDocs(itemCollection).then(snapshot =>{
       let encontrado = snapshot.docs.find(a => a.id === id);
-      encontrado.data().title.includes('random')
-    ? buscarProductoRandom(snapshot.docs, encontrado.data().categoryId)
-    : setProducto(encontrado.data())
+      setProducto(encontrado.data());
     })
 }, [id])
-
-const buscarProductoRandom = (arrayItems, random)=>{
-  const itemRandom = arrayItems.filter( id => id.data().categoryId === 'Videojuegos' )
-  setProducto(itemRandom[getRandomInt(itemRandom.length-1)].data());
-}
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
 
     return (
         <>

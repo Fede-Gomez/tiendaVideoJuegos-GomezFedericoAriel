@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
 const ItemCount = ({stock,initial,onAdd}) => {
+    const [count, setCount] = useState(initial)
 
-   const [count, setCount] = useState(initial)
     const countUp = ()=>{
         stock > count ? setCount(count + 1) : alert("Agregaste lo maximo posible")
     }

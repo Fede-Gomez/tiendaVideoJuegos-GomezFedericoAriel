@@ -9,7 +9,7 @@ export default function Cart() {
   return (
     <>
       {
-        items == 0 
+        items === 0 
         ?
         (
           <>

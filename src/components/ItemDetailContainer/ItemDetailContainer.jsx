@@ -17,7 +17,7 @@ export default function ItemDetailContainer() {
     const db = getFirestore();
     const itemCollection = collection(db, 'items');
     getDocs(itemCollection).then(snapshot =>{
-      let encontrado = snapshot.docs.find(a => a.id == id);
+      let encontrado = snapshot.docs.find(a => a.id === id);
       encontrado.data().title.includes('random')
     ? buscarProductoRandom(snapshot.docs, encontrado.data().categoryId)
     : setProducto(encontrado.data())
@@ -25,7 +25,7 @@ export default function ItemDetailContainer() {
 }, [id])
 
 const buscarProductoRandom = (arrayItems, random)=>{
-  const itemRandom = arrayItems.filter( id => id.data().categoryId == 'Videojuegos' )
+  const itemRandom = arrayItems.filter( id => id.data().categoryId === 'Videojuegos' )
   setProducto(itemRandom[getRandomInt(itemRandom.length-1)].data());
 }
 function getRandomInt(max) {
@@ -34,7 +34,7 @@ function getRandomInt(max) {
 
     return (
         <>
-            {producto.length != 0 ?
+            {producto.length !== 0 ?
               <ItemDetail
                 key={1}
                 producto={producto}

@@ -19,14 +19,14 @@ const { category, platform, gender } = useParams();
 
 useEffect(() => {
   const db = getFirestore();
-  if(category != undefined){
+  if(category !== undefined){
     let q = query(collection(db,"items"), where('categoryId','==',category));
     getDocs(q).then(snapshot =>{
       setProductos(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})))
     })
     return;
   }
-  if(platform != undefined){
+  if(platform !== undefined){
     let q = query(collection(db,"items"),
     where('categoryId','==','Videojuegos'),
     where('consolas','array-contains',platform))
@@ -37,7 +37,7 @@ useEffect(() => {
     })
     return
   }
-  if(gender != undefined){
+  if(gender !== undefined){
     let q = query(collection(db,"items"),
     where('gender','==',gender))
     getDocs(q).then(snapshot =>{
@@ -69,7 +69,7 @@ useEffect(() => {
         
         
         <div className='cardList'>
-          {productos.length != 0 ?
+          {productos.length !== 0 ?
               <ItemList 
                 items={productos}
               />

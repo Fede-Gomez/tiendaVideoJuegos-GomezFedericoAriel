@@ -14,9 +14,9 @@ export default function ItemDetail({producto}) {
     }
 console.log(producto);
 const inicial = ()=>{
-    const itemEnCarrito = items.filter(e => e.id == id)
+    const itemEnCarrito = items.filter(e => e.id === id)
     console.log(itemEnCarrito);
-    if(itemEnCarrito != 0){
+    if(itemEnCarrito !== 0){
         return itemEnCarrito[0].count - count
     }
     return 0
@@ -31,10 +31,10 @@ const inicial = ()=>{
             <div className="card-body">
                 <p className="card-text">{description}</p>
                 <p>Genero: {gender}</p>
-                {categoryId == 'Videojuegos' && <p>Plataformas: {consolas.map(platform =><b> {platform} </b>)}</p>}
+                {categoryId === 'Videojuegos' && <p>Plataformas: {consolas.map(platform =><b> {platform} </b>)}</p>}
                 <span>Precio: {price}</span>
                 {
-                    count == 0 ?
+                    count === 0 ?
                         <div style={{textAlign:'center'}}>
                             <ItemCount 
                             initial={inicial} 

@@ -24,7 +24,7 @@ export const NavBar = () => {
         let generosFiltrados = [];
         const itemCollection = collection(db, 'items');
         getDocs(itemCollection).then(snapshot =>{
-            generosFirebase = snapshot.docs.filter(e => e.data().categoryId == 'Videojuegos')
+            generosFirebase = snapshot.docs.filter(e => e.data().categoryId === 'Videojuegos')
             generosFirebase.forEach(e => generosFiltrados.push(e.data().gender))
             setGenders(Array.from(new Set(generosFiltrados.flat())))
         })
@@ -36,7 +36,7 @@ export const NavBar = () => {
         let plataformasFiltrados = [];
         const itemCollection = collection(db, 'items');
         getDocs(itemCollection).then(snapshot =>{
-            plataformasFirebase = snapshot.docs.filter(e => e.data().categoryId == 'Videojuegos')
+            plataformasFirebase = snapshot.docs.filter(e => e.data().categoryId === 'Videojuegos')
             plataformasFirebase.forEach(e => plataformasFiltrados.push(e.data().consolas))
             setPlatforms(Array.from(new Set(plataformasFiltrados.flat())))
         })
@@ -68,7 +68,7 @@ export const NavBar = () => {
                     genders.map(e =>(
                         <>
                             { 
-                                e!='???' && <Link key={e} to={`/gender/${e}`} style={style.links}>
+                                e!=='???' && <Link key={e} to={`/gender/${e}`} style={style.links}>
                                     {e}
                                 </Link>
                             }
@@ -79,7 +79,7 @@ export const NavBar = () => {
                     platforms.map(e =>(
                         <>
                             { 
-                                e!='???' && <Link key={e} to={`/platform/${e}`} style={style.links}>
+                                e!=='???' && <Link key={e} to={`/platform/${e}`} style={style.links}>
                                     {e}
                                 </Link>
                             }
@@ -105,7 +105,7 @@ export const NavBar = () => {
             {
                 navBar.map(e=>(
                     <>
-                        {e.toString() == 'Videojuegos' 
+                        {e.toString() === 'Videojuegos' 
                         ? 
                             generos
                         : 

@@ -25,20 +25,20 @@ export default function CartProvider({children}) {
         }
     }
     const removeItem =  (itemId) => {
-        setItems(items.filter(e => e.id != itemId))
+        setItems(items.filter(e => e.id !== itemId))
     }
     const clear =  () => {
         setItems([]);
     }
     const isInCart =  (nuevoItemId) => {
-        const encontrado = items.find(e => e.id == nuevoItemId)
-        if(encontrado != undefined)
+        const encontrado = items.find(e => e.id === nuevoItemId)
+        if(encontrado !== undefined)
             return true;
         return false;
     }
     const aumentarCantidad = (producto, count)=>{
             let aux = items;
-            let itemIndex = aux.findIndex(e => e.id == producto.id)
+            let itemIndex = aux.findIndex(e => e.id === producto.id)
             aux[itemIndex].count += count
             setItems([...aux])
     }

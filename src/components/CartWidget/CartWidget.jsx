@@ -14,7 +14,7 @@ export const CartWidget = () => {
   const handleShow = () => setShow(true);
   return (
     <>
-      {items == 0
+      {items === 0
       ?
         <img className='imgCarrito'
           src={carritoVacio}

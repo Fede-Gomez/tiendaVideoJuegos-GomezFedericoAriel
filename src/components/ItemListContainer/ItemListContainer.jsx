@@ -1,31 +1,75 @@
 import React,{ useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import datos from '../../assets/datosJuegos/productos'
 import '../../styles/ItemListContainer.css'
 import ItemList from '../ItemList/ItemList'
 import { PacmanLoader } from 'react-spinners';
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from 'firebase/firestore'
+
+
 export const ItemListContainer = () => {
 
 const [productos, setProductos] = useState([])
-
-const { category } = useParams();
+const { category, platform, gender } = useParams();
 
 useEffect(() => {
-  const bd = datos;
-  new Promise ((resol)=>{
-    setTimeout(() => {
-      resol(bd)
-    }, 2000)
-  }).then(data =>{
-    category != undefined ? setProductos( data.filter( e => e.categoryId == category)) : setProductos(data)
+  const db = getFirestore();
+  if(category !== undefined){
+    let q = query(collection(db,"items"), where('categoryId','==',category));
+    getDocs(q).then(snapshot =>{
+      setProductos(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})))
+    })
+    return;
+  }
+  if(platform !== undefined){
+    let q = query(collection(db,"items"),
+    where('categoryId','==','Videojuegos'),
+    where('consolas','array-contains',platform))
+    getDocs(q).then(snapshot =>{
+      setProductos(snapshot.docs.map(doc => (
+        {id: doc.id, ...doc.data()}
+        )))
+    })
+    return
+  }
+  if(gender !== undefined){
+    let q = query(collection(db,"items"),
+    where('gender','==',gender))
+    getDocs(q).then(snapshot =>{
+      setProductos(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})))
+    })
+    return
+  }
+  const itemCollection = collection(db, 'items');
+  getDocs(itemCollection).then(snapshot =>{
+    setProductos(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+    )
   })
-},[category])
+},[category,platform,gender])
 
   return (
     <>
-        <h2 style={{textAlign:'center', margin:'30px'}}>Productos de: {category}</h2>
+        {
+
+        (category || gender || platform)
+          ? 
+            <h2 style={{textAlign:'center', margin:'30px', color:'white'}}>
+              Productos de: {category || gender || platform}
+            </h2>
+          :
+            <h2 style={{textAlign:'center', margin:'30px', color:'white'}}>
+              Todos los Productos
+            </h2>
+        }
+        
+        
         <div className='cardList'>
-          {productos.length != 0 ?
+          {productos.length !== 0 ?
               <ItemList 
                 items={productos}
               />

@@ -7,10 +7,10 @@ const ItemCount = ({stock,initial,onAdd}) => {
         stock > count ? setCount(count + 1) : alert("Agregaste lo maximo posible")
     }
     const countDown = (e)=>{
-        count != 0  ? setCount(count - 1) : alert("No hay mas stock")
+        count !== 0  ? setCount(count - 1) : alert("No hay mas stock")
     }
     const Add = ()=>{
-        count == 0 ? alert('Agrege un 1 aunque sea al carrito') : onAdd(count)
+        count === 0 ? alert('Agrege un 1 aunque sea al carrito') : onAdd(count)
     }
     return (
     <>

@@ -1,15 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useContext,useState } from 'react'
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext'
 import '../../styles/Cart.css';
+import Formulario from '../Formulario/Formulario';
 import ItemListCart from '../ItemListCart/ItemListCart';
 
 export default function Cart() {
-  const {items} = useContext(CartContext)
+  const {items, continuarCompra} = useContext(CartContext)
+ 
   return (
     <>
       {
-        items.length === 0 
+        items.length === 0
         ?
         (
           <>
@@ -20,8 +22,13 @@ export default function Cart() {
             </Link>
           </>
         )
-        :
-          <ItemListCart items={items} />
+        : 
+          <>
+              <ItemListCart items={items} />
+            {
+              continuarCompra && <Formulario/>
+            }
+          </>
       }
     </>
   )

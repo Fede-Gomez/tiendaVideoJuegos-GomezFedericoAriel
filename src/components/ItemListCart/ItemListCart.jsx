@@ -2,9 +2,12 @@ import React, { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
 
 export default function ItemListCart({items}) {
-    const {removeItem, clear} = useContext(CartContext)
+    const {removeItem, clear, setContinuarCompra} = useContext(CartContext)
     const eliminarItem = (id)=>{
         removeItem(id)
+    }
+    const ingresarDatos = ()=>{
+      setContinuarCompra(true)
     }
     return (
         <>
@@ -49,9 +52,9 @@ export default function ItemListCart({items}) {
 
                 type="button" 
                 className="btn btn-outline-success"
-                onClick={()=>alert("Pudiste comprar sin bugs!!!!")}
+                onClick={ingresarDatos}
             >
-                Confirmar compra
+                Continuar la compra
             </button>
           </div>
         </>

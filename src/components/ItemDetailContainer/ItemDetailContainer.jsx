@@ -18,7 +18,7 @@ export default function ItemDetailContainer() {
     const itemCollection = collection(db, 'items');
     getDocs(itemCollection).then(snapshot =>{
       let encontrado = snapshot.docs.find(a => a.id === id);
-      setProducto(encontrado.data());
+      setProducto([{...encontrado.data(),id}]);
     })
 }, [id])
 
@@ -26,8 +26,8 @@ export default function ItemDetailContainer() {
         <>
             {producto.length !== 0 ?
               <ItemDetail
-                key={1}
-                producto={producto}
+                key={id}
+                producto={producto[0]}
               />
               : <PacmanLoader color={'#4A90E2'} cssOverride={override} size={150}/>
             }

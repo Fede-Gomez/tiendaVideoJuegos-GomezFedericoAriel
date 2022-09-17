@@ -3,18 +3,13 @@ import React, { useState, createContext, useEffect } from 'react'
 export const CartContext = createContext()
 
 export default function CartProvider({children}) {
-    const [items, setItems] = useState(JSON.parse(localStorage.getItem('items')))
-    useEffect(() => {
-        const items = JSON.parse(localStorage.getItem('items'));
-        if (items) {
-         setItems(items);
-        }
-      }, []);
-
-    useEffect(() => {
-        localStorage.setItem('items', JSON.stringify(items));
-    }, [items]);
-
+    const [items, setItems] = useState([])
+    const [continuarCompra, setContinuarCompra] = useState(false)
+    const precioTotal = ()=> {
+        let total = 0;
+        items.forEach(item => { total += item.price*item.count });
+        return total;
+    }
 
     const addItem =  (producto, count) => {
         if(isInCart(producto.id)){
@@ -29,6 +24,7 @@ export default function CartProvider({children}) {
     }
     const clear =  () => {
         setItems([]);
+        setContinuarCompra(false);
     }
     const isInCart =  (nuevoItemId) => {
         const encontrado = items.find(e => e.id === nuevoItemId)
@@ -48,6 +44,9 @@ export default function CartProvider({children}) {
             removeItem,
             clear,
             items,
+            precioTotal,
+            continuarCompra,
+            setContinuarCompra
         }}>
             {children}
         </CartContext.Provider>

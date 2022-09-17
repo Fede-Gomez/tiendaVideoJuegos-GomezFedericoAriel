@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useContext } from 'react';
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
 import ItemCount from '../ItemCount/ItemCount';
@@ -19,7 +18,6 @@ const inicial = ()=>{
     }
     return 0
 }
-
     return (
     <>
         <h2 style={{textAlign:'center', margin:'30px', color:'white'}}>Estas dentro de {categoryId}</h2>

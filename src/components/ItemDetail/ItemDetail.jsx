@@ -11,13 +11,8 @@ export default function ItemDetail({producto}) {
         setCount(cantidad);
         addItem(producto, cantidad);
     }
-const inicial = ()=>{
-    const itemEnCarrito = items.filter(e => e.id === id)
-    if(itemEnCarrito.length !== 0){
-        return itemEnCarrito[0].count - count
-    }
-    return 0
-}
+    const itemEnCarrito = items.filter(e => e.id === id)[0]
+
     return (
     <>
         <h2 style={{textAlign:'center', margin:'30px', color:'white'}}>Estas dentro de {categoryId}</h2>
@@ -38,10 +33,10 @@ const inicial = ()=>{
                     count === 0 ?
                         <div style={{textAlign:'center'}}>
                             <ItemCount 
-                            initial={inicial} 
+                            initial={1} 
                             stock={stock} 
                             onAdd={agregarItemCarrito}
-                            contador={count}
+                            inCart={itemEnCarrito}
                         />
                             <Link to={`/`}
                             >

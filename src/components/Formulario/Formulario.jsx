@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, DocumentSnapshot, getDoc, getFirestore, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore'
 import React, { useContext, useState } from 'react'
 import { CartContext } from '../../context/CartContext'
 
@@ -47,12 +47,9 @@ const Formulario = ({total, compra}) => {
     const updateStock = () =>{
         const db = getFirestore();
         items.forEach( item =>{
-            console.log('id ',item.item.id);
-            console.log('contador item actualizar ',item.count);
-            getDoc(doc(db, 'items', item.item)).then( snapshot =>{
-                console.log("stock del producto " , snapshot.data().stock);
-                const newStock = doc(db, 'item', item.item.id);
-                updateDoc(newStock, {stock: DocumentSnapshot.data().stock - item.count})
+            getDoc(doc(db, 'items', item.id)).then( snapshot =>{
+                const newStock = doc(db, 'items', item.id);
+                updateDoc(newStock, {stock: snapshot.data().stock - item.count})
             })
         })
     }

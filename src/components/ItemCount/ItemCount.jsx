@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
 
-const ItemCount = ({stock,initial,onAdd}) => {
+const ItemCount = ({stock,initial,onAdd, inCart}) => {
     const [count, setCount] = useState(initial)
-
+    let carrito;
+    if(inCart === undefined){
+        carrito = 0
+    }
+    else{
+        carrito = inCart.count
+    }
     const countUp = ()=>{
-        stock > count ? setCount(count + 1) : alert("Agregaste lo maximo posible")
+        stock > count && count + carrito < stock ? setCount(count + 1) : alert("Agregaste lo maximo posible")
     }
     const countDown = (e)=>{
         count !== 0  ? setCount(count - 1) : alert("No hay mas stock")
     }
     const Add = ()=>{
-        count === 0 ? alert('Agrege un 1 aunque sea al carrito') : onAdd(count)
+        count !== 0 && count + carrito > stock ? alert('No es posible carrito') : onAdd(count)
     }
     return (
     <>
@@ -43,8 +49,6 @@ const ItemCount = ({stock,initial,onAdd}) => {
                 Agregar
             </button>
         </div>
-        <span>Hay {stock-count} disponible</span>
-        
     </>
   )
 }

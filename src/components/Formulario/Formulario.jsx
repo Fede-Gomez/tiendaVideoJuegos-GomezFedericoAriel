@@ -42,6 +42,7 @@ const Formulario = ({total, compra}) => {
         const ordersCollection = collection(db, 'orders')
         addDoc(ordersCollection, newOrder).then(({id})=> setOrderId(id))
         updateStock()
+        alert('Compra exitosa!!')
     }
 
     const updateStock = () =>{

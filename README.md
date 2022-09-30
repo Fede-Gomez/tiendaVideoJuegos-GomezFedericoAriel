@@ -2,6 +2,7 @@
 
 
 Levantar proyecto
+    
     1) Instalacion de dependencias
         npm i
 

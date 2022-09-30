@@ -10,6 +10,7 @@ Levantar proyecto
         npm run start
 
 Tecnologias utilizadas
+
     React
     firebase
     bootstrap

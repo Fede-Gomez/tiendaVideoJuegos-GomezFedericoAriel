@@ -4,7 +4,7 @@ import { CartContext } from '../../context/CartContext'
 
 const Formulario = ({total, compra}) => {
     const {items, precioTotal} = useContext(CartContext)
-    const [orderId, setOrderId] = useState('')
+    const [setOrderId] = useState('')
     const [formulario, setFormulario] = useState({
         buyer:{
             email:'',

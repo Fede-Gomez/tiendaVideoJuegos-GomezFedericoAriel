@@ -25,6 +25,19 @@ export const CartWidget = () => {
       :
       (
         <>
+          <div
+            style={{
+              color:'white',
+              marginTop:-70,
+              marginRight:-40,
+              backgroundColor:'red',
+              alignItems:'center',
+              width:25,
+              height:25,
+              borderRadius:100,
+              paddingLeft:8,
+            }}
+          >{items.length}</div>
           <img className='imgCarrito'
             src={carritoLleno}
             alt='carrito lleno'

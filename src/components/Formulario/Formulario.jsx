@@ -4,7 +4,7 @@ import { CartContext } from '../../context/CartContext'
 
 const Formulario = ({total, compra}) => {
     const {items, precioTotal} = useContext(CartContext)
-    const [setOrderId] = useState('')
+    const [orderId,setOrderId] = useState('')
     const [formulario, setFormulario] = useState({
         buyer:{
             email:'',
@@ -32,6 +32,14 @@ const Formulario = ({total, compra}) => {
 
     const sentOrder = (e)=>{
         e.preventDefault();
+        if(   nombre.length == 0 
+            || apellido.length == 0 
+            || email.length == 0
+            || telefono.length == 0
+        ){
+            alert('Complete los datos faltantes')
+            return;
+        }
         const newOrder = {
             buyer:formulario.buyer,
             items:items,
@@ -40,7 +48,8 @@ const Formulario = ({total, compra}) => {
         }
         const db = getFirestore();
         const ordersCollection = collection(db, 'orders')
-        addDoc(ordersCollection, newOrder).then(({id})=> setOrderId(id))
+        addDoc(ordersCollection, newOrder).then(({id})=> {setOrderId(id)})
+        alert('Su id de compra es: '+ orderId);
         updateStock()
         alert('Compra exitosa!!')
     }
